@@ -3,11 +3,12 @@ name: Deploy static Portfolio to GitHub Pages
 permissions:
   id-token: write
   contents: read
+  pages: write
 
 on:
   push:
     branches: [main]
-    workflow_dispatch: {}
+  workflow_dispatch: {}
 
 jobs:
   deploy:
@@ -15,6 +16,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: '.'
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
